@@ -216,7 +216,7 @@
 
 
   /* =====================================================================
-     ===============  SURCOUCHE MOBILE (TEL) — v4.345 tel  ================
+     ===============  SURCOUCHE MOBILE (TEL) — v4.347 tel  ================
      Moteur + HTML : version PC v1.49 (toutes les fonctionnalites).
      Ce bloc (place en dernier) reskinne en mode telephone : gros boutons
      tactiles, libelles agrandis et autorises a passer a la ligne (jamais
@@ -243,6 +243,7 @@
   .pc-left  { order: 2; flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; display: flex; flex-direction: column; gap: 5px; }
   .pc-right .abc-card { flex: 1 1 0; min-height: 0; min-width: 0; display: flex; flex-direction: column; padding: 4px; }
   .score-wrap { flex: 1 1 0; width: 100%; min-height: 0; min-width: 0; overflow: auto; -webkit-overflow-scrolling: touch; }
+    .score-wrap .a4-sheet { margin: 0 0 16px 0 !important; }/*A4TELSCROLLX_4347*/
   /* A4SCROLL_4337 : sans objet sur Tel — .score-wrap a deja overflow:auto (scroll tactile natif) ; le centrage inline-block du PC casserait le flex mobile. Marqueur pour synchro de version. */
   .score-wrap svg { width: 100%; height: 100%; display: block; }
 
@@ -391,7 +392,7 @@
 
 <div class="abc-app" id="app">
   <div class="ver-badge">
-    <span>Éditeur ABC <b>v4.345 tel</b><b id="ver-title" style="color:#185fa5;margin-left:10px;"></b></span>
+    <span>Éditeur ABC <b>v4.347 tel</b><b id="ver-title" style="color:#185fa5;margin-left:10px;"></b></span>
     <span style="font-size:24px;">win <b id="ww-tag">0</b>×<b id="wh-tag">0</b></span>
   </div>
 
@@ -632,7 +633,7 @@
       </div>
 
       <div class="tab-panel" data-panel="vue">
-        <div class="row-grid row-4" style="margin:0 0 6px;"><button class="k" id="btn-layout-line" style="font-size:13px;" title="Une ligne continue (défilement horizontal)">↔ Ligne</button><button class="k" id="btn-layout-page" style="font-size:13px;" title="Systèmes empilés (défilement vertical)">⬓ Page</button><button class="k" id="btn-layout-a4" style="font-size:13px;" title="Page A4 à l'écran (défilement vertical)">▭ A4</button><button class="k" id="btn-pdf" style="font-size:13px;color:#b3261e;font-weight:700;" title="Exporter la vue A4 en PDF (impression du navigateur)">PDF</button></div><div style="margin:0 0 6px;"><button class="k" id="btn-recueil" style="font-size:13px;width:100%;box-sizing:border-box;" title="Afficher tous les morceaux du fichier enchaînés (recueil) — imprimable via le bouton PDF">▤ Recueil</button></div><div class="row-grid" style="grid-template-columns:auto 1fr auto;align-items:center;gap:4px;margin:0 0 6px;"><button class="k" id="a4zoom-d" style="font-size:22px;font-weight:700;min-width:44px;padding:4px 14px;" title="Zoom d'affichage de la partition — réduire (sans effet sur le PDF)">-</button><span style="text-align:center;font-size:16px;color:#5f5e5a;">Zoom aff. <b id="a4zoom-val">100</b> %</span><button class="k" id="a4zoom-u" style="font-size:22px;font-weight:700;min-width:44px;padding:4px 14px;" title="Zoom d'affichage de la partition — agrandir (sans effet sur le PDF)">+</button></div><!--A4ZOOM_4339_HTML--><!--A4ZOOMUI_4345-->
+        <div class="row-grid row-4" style="margin:0 0 6px;"><button class="k" id="btn-layout-line" style="font-size:13px;" title="Une ligne continue (défilement horizontal)">↔ Ligne</button><button class="k" id="btn-layout-page" style="font-size:13px;" title="Systèmes empilés (défilement vertical)">⬓ Page</button><button class="k" id="btn-layout-a4" style="font-size:13px;" title="Page A4 à l'écran (défilement vertical)">▭ A4</button><button class="k" id="btn-pdf" style="font-size:13px;color:#b3261e;font-weight:700;" title="Exporter la vue A4 en PDF (impression du navigateur)">PDF</button></div><div style="margin:0 0 6px;"><button class="k" id="btn-recueil" style="font-size:13px;width:100%;box-sizing:border-box;" title="Afficher tous les morceaux du fichier enchaînés (recueil) — imprimable via le bouton PDF">▤ Recueil</button></div><div class="row-grid" style="grid-template-columns:auto 1fr auto;align-items:center;gap:4px;margin:0 0 6px;"><button class="k" id="a4zoom-d" style="font-size:30px;font-weight:700;line-height:1;padding:6px 22px;" title="Zoom d'affichage de la partition — réduire (sans effet sur le PDF)">-</button><span style="text-align:center;font-size:22px;color:#5f5e5a;">Zoom aff. <b id="a4zoom-val">100</b> %</span><button class="k" id="a4zoom-u" style="font-size:30px;font-weight:700;line-height:1;padding:6px 22px;" title="Zoom d'affichage de la partition — agrandir (sans effet sur le PDF)">+</button></div><!--A4ZOOM_4339_HTML--><!--A4ZOOMUI_4345--><!--A4ZOOMSZ_4346-->
         <div id="oeil-sec-hdr" style="border:1px solid #d8d6ce;border-radius:8px;margin:6px 0;padding:2px 6px 4px;"><button class="k" id="oeil-hdr-head" style="background:#d8e9dc;border-color:#b9c8bd;width:100%;text-align:left;font-size:13px;font-weight:700;">📄 Titre / No Page <span id="oeil-hdr-caret" style="float:right;">▸</span></button><div id="oeil-hdr-body" style="display:none;"><div id="oeil-hdr-host"></div></div></div>
           <div id="oeil-sec-sys" style="border:1px solid #d8d6ce;border-radius:8px;margin:6px 0;padding:2px 6px 4px;">
           <button class="k" id="oeil-sys-head" style="background:#d8e9dc;border-color:#b9c8bd;width:100%;text-align:left;font-size:13px;font-weight:700;">⚙ Système <span id="oeil-sys-caret" style="float:right;">▸</span></button>
