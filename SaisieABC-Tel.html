@@ -216,7 +216,7 @@
 
 
   /* =====================================================================
-     ===============  SURCOUCHE MOBILE (TEL) — v4.347 tel  ================
+     ===============  SURCOUCHE MOBILE (TEL) — v4.350 tel  ================
      Moteur + HTML : version PC v1.49 (toutes les fonctionnalites).
      Ce bloc (place en dernier) reskinne en mode telephone : gros boutons
      tactiles, libelles agrandis et autorises a passer a la ligne (jamais
@@ -392,7 +392,7 @@
 
 <div class="abc-app" id="app">
   <div class="ver-badge">
-    <span>Éditeur ABC <b>v4.347 tel</b><b id="ver-title" style="color:#185fa5;margin-left:10px;"></b></span>
+    <span>Éditeur ABC <b>v4.350 tel</b><b id="ver-title" style="color:#185fa5;margin-left:10px;"></b></span>
     <span style="font-size:24px;">win <b id="ww-tag">0</b>×<b id="wh-tag">0</b></span>
   </div>
 
@@ -3015,7 +3015,7 @@ if(+t.dot>=1)svg+='<circle cx="'+(cx+7)+'" cy="'+y+'" r="1.2" fill="'+color+'"/>
       const _lastM=sys[sys.length-1];const _pbk=!!(state.breaks&&state.breaks[_lastM]&&state.breaks[_lastM].page);if(_barN>1){var _bi=sysHtml.lastIndexOf('</div>');sysHtml=sysHtml.slice(0,_bi)+'<div style="position:absolute;left:'+_barX+'px;top:'+_barTop+'px;height:'+(_barBot-_barTop)+'px;border-left:1.6px solid #1a1a1a;pointer-events:none;"></div>'+sysHtml.slice(_bi);}sysBlocks.push({html:sysHtml,h:_sysPxH,pb:_pbk});
     });
     state.activeTrack=saved;
-    cont.style.overflowX='hidden';/*A4OX2_4338 : PC-only (Tel: scroll natif, JS inchange)*/
+    cont.style.overflowX=(state.scoreLayout==='a4')?'auto':'hidden';/*A4OX2_4338*//*A4TELOX_4348*/
     cont.style.overflowY='auto';
     let wordsHtml='';
     if(state.viewFlags.lyrics){const w=(state.headers.W||'').trim();if(w){const lines=w.split('\n').map(l=>escXml(l)).join('<br>');wordsHtml='<div class="score-words" style="max-width:'+Math.max(sysPxW,320)+'px;margin:8px 2px 4px;padding:8px 12px;border-top:1px solid #e2e0d8;font-size:'+((state.view&&state.view.wordsSize!=null)?state.view.wordsSize:12)+'px;line-height:1.5;color:#33312c;">'+lines+'</div>';}}
@@ -4003,7 +4003,7 @@ render=function(){if(state&&state.recueil&&!state.__inRecueil){try{state.__inRec
     {const zv=document.getElementById('zoom-v');if(zv)zv.textContent=(state.zoom||100);}
     
     document.getElementById('btn-play').textContent=audio.playing?'⏸':'▶';
-    document.getElementById('btn-loop').classList.toggle('active',!!state.loop);
+    {var _lb=document.getElementById('btn-loop');if(_lb){var _lm=state.loopMode||0;_lb.classList.toggle('active',_lm===2);if(_lm===1){_lb.style.setProperty('background','#bfdbfe','important');_lb.style.setProperty('color','#1e3a8a','important');_lb.style.setProperty('box-shadow','inset 0 0 0 2px #3b82f6','important');}else if(_lm===2){_lb.style.setProperty('background','#2563eb','important');_lb.style.setProperty('color','#ffffff','important');_lb.style.setProperty('box-shadow','none','important');}else{_lb.style.removeProperty('background');_lb.style.removeProperty('color');_lb.style.removeProperty('box-shadow');}}}/*LOOPAB_4349*//*LOOPAB2_4350*/
     document.getElementById('btn-undo').disabled=(history.pos<=0);
     document.getElementById('btn-redo').disabled=(history.pos>=history.stack.length-1);
     const um=document.getElementById('btn-undo-mes');if(um)um.disabled=(history.pos<=0);
@@ -4465,7 +4465,7 @@ render=function(){if(state&&state.recueil&&!state.__inRecueil){try{state.__inRec
     const qD=60/state.tempo;
     const playSet=playableTracks();
     const multi=playSet.length>1;
-    const startMeasure=state.sel.m,startSlotActive=state.sel.s;
+    let startMeasure=state.sel.m,startSlotActive=state.sel.s;if(state.loopA){startMeasure=state.loopA.m;startSlotActive=state.loopA.s;audio.loopFrom={m:startMeasure,s:startSlotActive};}/*LOOPAB_4349*/
     if(!audio.loopFrom)audio.loopFrom={m:startMeasure,s:startSlotActive};
     // Ordre de lecture (reprises/voltas) calculé sur la voix active (les reprises sont synchronisées entre voix)
     const savedAT=state.activeTrack;
@@ -4499,7 +4499,7 @@ render=function(){if(state&&state.recueil&&!state.__inRecueil){try{state.__inRec
     let endAt=st;
     allEvents.forEach(ev=>{endAt=Math.max(endAt,ev.startAt+ev.dur)});
     Object.keys(audio.voiceMarkers).forEach(ti=>{const ms=audio.voiceMarkers[ti];if(ms.length)endAt=Math.max(endAt,ms[ms.length-1].updateAt+0.001)});
-    audio.stopAt=endAt;
+    audio.stopAt=endAt;if(state.loopB){var _bS=Infinity,_bE=null,_bT=state.activeTrack;audio.events.forEach(function(ev){if(ev.measureIdx===state.loopB.m&&ev.slotIdx===state.loopB.s&&ev.trackIdx===_bT&&ev.startAt<_bS){_bS=ev.startAt;_bE=ev.startAt+ev.dur;}});if(_bE===null){audio.events.forEach(function(ev){if(ev.measureIdx===state.loopB.m&&ev.slotIdx===state.loopB.s&&ev.startAt<_bS){_bS=ev.startAt;_bE=ev.startAt+ev.dur;}});}if(_bE!==null){audio.events=audio.events.filter(function(ev){return ev.startAt<=_bS+1e-6;});audio.stopAt=_bE;Object.keys(audio.voiceMarkers).forEach(function(k){audio.voiceMarkers[k]=audio.voiceMarkers[k].filter(function(ms){return ms.updateAt<=_bS+1e-6;});});}}/*LOOPAB_4349*/
     const SCHEDULE_AHEAD=3.0;
     function scheduleAhead(){
       const now=audio.ctx.currentTime;
@@ -6962,7 +6962,7 @@ render=function(){if(state&&state.recueil&&!state.__inRecueil){try{state.__inRec
   
   document.getElementById('btn-play').addEventListener('click',()=>{if(audio.playing)stopPlayback(true);else playSchedule()});
   document.getElementById('btn-stop').addEventListener('click',()=>stopPlayback(true));
-  document.getElementById('btn-loop').addEventListener('click',()=>{state.loop=!state.loop;document.getElementById('btn-loop').classList.toggle('active',state.loop)});
+  document.getElementById('btn-loop').addEventListener('click',()=>{var _m=state.loopMode||0;if(_m===0){state.loopMode=1;state.loop=true;state.loopA={m:state.sel.m,s:state.sel.s};state.loopB=null;}else if(_m===1){state.loopMode=2;state.loopB={m:state.sel.m,s:state.sel.s};}else{state.loopMode=0;state.loop=false;state.loopA=null;state.loopB=null;if(audio)audio.loopFrom=null;}if(typeof renderState==='function')renderState();if(audio&&audio.playing&&typeof replayFromCurrent==='function')replayFromCurrent();/*LOOPAB_4349*/});
   (function(){const vm=document.getElementById('btn-viewmode');if(vm)vm.addEventListener('click',()=>{state.viewmode=!state.viewmode;document.getElementById('app').classList.toggle('viewmode',state.viewmode);render()});})();
 
   // ⭐ Accord : boutons ajoutent leur texte, ⌫ efface dernier char, pas de fondamentale
