@@ -1,27 +1,54 @@
 {
   "name": "SaisieABC",
   "short_name": "SaisieABC",
-  "description": "Éditeur de notation musicale ABC : saisie, tablatures, lecture, PDF, MusicXML.",
+  "description": "Éditeur de notation musicale ABC — version téléphone.",
   "lang": "fr",
-  "start_url": "./SaisieABC-PC.html",
+  "start_url": "./SaisieABC-Tel.html",
   "scope": "./",
-  "id": "/SaisieABC-PC/",
+  "id": "/SaisieABC-Tel/",
   "display": "standalone",
   "background_color": "#f4efe6",
-  "theme_color": "#1e4d57",
+  "theme_color": "#6b3a5b",
   "icons": [
-    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "./icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "file_handlers": [
     {
-      "action": "./SaisieABC-PC.html",
+      "action": "./SaisieABC-Tel.html",
       "name": "Partition SaisieABC",
-      "accept": { "application/octet-stream": [".atm", ".atmz"] },
+      "accept": {
+        "application/octet-stream": [
+          ".atm",
+          ".atmz"
+        ]
+      },
       "icons": [
-        { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" }
+        {
+          "src": "./icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
       ]
     }
-  ]
+  ],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  }
 }
